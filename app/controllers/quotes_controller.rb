@@ -2,7 +2,7 @@ class QuotesController < ApplicationController
   before_action :set_quote, only: [:show, :edit, :update, :destroy]
   
   def index
-    @quotes = Quote.all
+    @quotes = Quote.all.order(created_at: :desc)
   end
 
   def show
@@ -26,7 +26,7 @@ class QuotesController < ApplicationController
   end
 
   def update
-    if Quote.update(quote_params)
+    if @quote.update(quote_params)
       redirect_to quotes_path, notice: "Quote updated successfully."
     else
       render :edit, status: :unprocessable_entity
